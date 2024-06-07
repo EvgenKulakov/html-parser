@@ -17,7 +17,7 @@ public class HTMLParser {
         return "html-parser";
     }
 
-    @PostMapping("/")
+    @PostMapping("/parsing")
     public String showResult(@ModelAttribute("HTMLWrapper") HTMLWrapper htmlWrapper, Model model) {
         String resultText = getResultText(htmlWrapper.getHtmlText());
         model.addAttribute("HTMLWrapper", new HTMLWrapper());
