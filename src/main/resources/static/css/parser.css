@@ -1,0 +1,19 @@
+.result {
+    font-size: 1.3em;
+    font-weight: bold;
+    padding: 1em 1em 1em 0;
+}
+
+.success-text {
+    color: green;
+    padding: 1em;
+    opacity: 0;
+    visibility: hidden;
+    transition: 1s ease-in-out;
+}
+
+.success-text.show {
+    opacity: 1;
+    visibility: visible;
+    transition: 0.1s ease-in-out;
+}

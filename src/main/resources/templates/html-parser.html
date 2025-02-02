@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>HTML Parser</title>
   <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/css/parser.css}" rel="stylesheet">
 </head>
 <body>
 
@@ -16,11 +17,15 @@
       <button class="my-3 btn btn-primary" type="submit">Обработать</button>
     </form>
     <div th:if="${!resultText.isEmpty()}">
-      <h2>Результат</h2>
-      <p th:text="${resultText}"></p>
+      <span class="result">Результат</span>
+      <button class="btn btn-sm btn-outline-secondary" type="button" id="copy-button">Копировать</button>
+      <span class="success-text">✔ Скопировано успешно</span>
+      <p class="my-3" th:text="${resultText}" id="copy-text"></p>
     </div>
   </div>
 </div>
+
+<script th:if="${!resultText.isEmpty()}" src="/js/parser.js"></script>
 
 </body>
 </html>
