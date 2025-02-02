@@ -1,9 +1,14 @@
 const copyButton = document.querySelector('#copy-button')
-const copyTextBlock = document.querySelector('#copy-text')
+const firstTextBlock = document.querySelector('#first-text')
+const secondTextBlocks = document.querySelectorAll('.second-text')
 const successText = document.querySelector('.success-text')
 
 const copyFunc = () => {
-    const textToCopy = copyTextBlock.innerText;
+    let textToCopy = firstTextBlock.innerText + '\n\n'
+
+    secondTextBlocks.forEach(el => {
+        textToCopy += el.innerText + '\n'
+    })
 
     navigator.clipboard.writeText(textToCopy)
         .then(() => {
@@ -12,7 +17,7 @@ const copyFunc = () => {
 
             setTimeout(() => {
                 successText.classList.remove('show');
-            }, 1500);
+            }, 2000);
         })
         .catch(err => {
             alert('Не удалось скопировать текст: ' + textToCopy);

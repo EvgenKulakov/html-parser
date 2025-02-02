@@ -16,16 +16,17 @@
       </textarea>
       <button class="my-3 btn btn-primary" type="submit">Обработать</button>
     </form>
-    <div th:if="${!resultText.isEmpty()}">
+    <div th:if="${!firstText.isEmpty()}">
       <span class="result">Результат</span>
       <button class="btn btn-sm btn-outline-secondary" type="button" id="copy-button">Копировать</button>
       <span class="success-text">✔ Скопировано успешно</span>
-      <p class="my-3" th:text="${resultText}" id="copy-text"></p>
+      <p class="my-3" th:text="${firstText}" id="first-text"></p>
+      <p th:each="sText, itr : ${secondText}" class="my-1 second-text" th:text="|${itr.count}. ${sText}|"></p>
     </div>
   </div>
 </div>
 
-<script th:if="${!resultText.isEmpty()}" src="/js/parser.js"></script>
+<script th:if="${!firstText.isEmpty()}" src="/js/parser.js"></script>
 
 </body>
 </html>
