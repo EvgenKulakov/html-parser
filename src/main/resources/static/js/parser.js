@@ -4,11 +4,13 @@ const secondTextBlocks = document.querySelectorAll('.second-text')
 const successText = document.querySelector('.success-text')
 
 const copyFunc = () => {
-    let textToCopy = firstTextBlock.innerText + '\n\n'
+    let textToCopy = firstTextBlock.innerText
 
-    secondTextBlocks.forEach(el => {
-        textToCopy += el.innerText + '\n'
-    })
+    if (secondTextBlocks.length > 0) {
+        textToCopy += '\n\n'
+        const blocksArray = Array.from(secondTextBlocks);
+        textToCopy += blocksArray.map(el => el.innerText).join('\n');
+    }
 
     navigator.clipboard.writeText(textToCopy)
         .then(() => {
