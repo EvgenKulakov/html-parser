@@ -15,6 +15,7 @@
       <textarea rows="10" class="form-control" th:field="*{htmlText}">
       </textarea>
       <button class="my-3 btn btn-primary" type="submit">Обработать</button>
+      <button formaction="/img-text" class="my-3 btn btn-warning" type="submit">Обработать картинку</button>
     </form>
     <div th:if="${!firstText.isEmpty()}">
       <span class="result">Результат</span>
