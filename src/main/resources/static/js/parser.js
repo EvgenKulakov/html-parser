@@ -1,10 +1,15 @@
 const copyButton = document.querySelector('#copy-button')
+const imgTextBlock = document.querySelector('#img-text')
 const firstTextBlock = document.querySelector('#first-text')
 const secondTextBlocks = document.querySelectorAll('.second-text')
 const successText = document.querySelector('.success-text')
 
 const copyFunc = () => {
-    let textToCopy = firstTextBlock.innerText
+    let textToCopy
+    if (imgTextBlock.innerText.length > 0) {
+        textToCopy = imgTextBlock.innerText
+    }
+    textToCopy += '\n\n' + firstTextBlock.innerText
 
     if (secondTextBlocks.length > 0) {
         textToCopy += '\n\n'
