@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -11,11 +12,15 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
 @Slf4j
 public class ImageUtils {
+
+    private static final String DOMAIN_BACKGROUND_IMAGE = "https://kakdela.hh.ru";
+    private static final String URL_IMAGE_PATTERN = "background-image:\\s*url\\((?:&quot;|\"|')?(.*?)(?:&quot;|\"|')?\\)";
 
     public String extractImageUrl(String html) {
         String urlCandidate;
@@ -28,7 +33,8 @@ public class ImageUtils {
             if (imgElement != null) {
                 urlCandidate = imgElement.attr("src");
             } else {
-                return null;
+                urlCandidate = extractBackgroundImageUrl(doc);
+                if (urlCandidate == null) return null;
             }
         } else {
             urlCandidate = html;
@@ -42,7 +48,23 @@ public class ImageUtils {
             new URL(urlCandidate).toURI();
             return urlCandidate;
         } catch (URISyntaxException | MalformedURLException e) {
-            log.warn("{} - не url и не xml: {}", html, e.getMessage());
+            log.warn("Не url и не xml: {}\n Error message: {}", html, e.getMessage());
+        }
+        return null;
+    }
+
+    private String extractBackgroundImageUrl(Document doc) {
+        Elements elementsWithStyle = doc.select("[style]");
+
+        Pattern pattern = Pattern.compile(URL_IMAGE_PATTERN);
+
+        for (Element element : elementsWithStyle) {
+            String style = element.attr("style");
+            Matcher matcher = pattern.matcher(style);
+
+            if (matcher.find()) {
+                return DOMAIN_BACKGROUND_IMAGE + matcher.group(1);
+            }
         }
         return null;
     }

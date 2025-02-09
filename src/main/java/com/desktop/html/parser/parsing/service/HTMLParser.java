@@ -60,9 +60,18 @@ public class HTMLParser {
             textResponse.setSecondText(secondText);
         } else {
             String textFromHtml = htmlParse(htmlText);
-            textResponse.setFirstText(textFromHtml);
+            if (!textFromHtml.equals(imageUrl)) {
+                textResponse.setFirstText(textFromHtml);
+            }
         }
 
+        return textResponse;
+    }
+
+    public TextResponse nativeParse(String htmlText) {
+        TextResponse textResponse = new TextResponse();
+        String textFromHtml = htmlParse(htmlText);
+        textResponse.setFirstText(textFromHtml);
         return textResponse;
     }
 

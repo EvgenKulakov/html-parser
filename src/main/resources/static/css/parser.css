@@ -17,3 +17,15 @@
     visibility: visible;
     transition: 0.1s ease-in-out;
 }
+
+.buttons {
+    display: flex;
+}
+
+.google {
+    margin-left: 0.4em;
+}
+
+.only-html {
+    margin-left: auto;
+}

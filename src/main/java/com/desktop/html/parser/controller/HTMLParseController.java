@@ -21,7 +21,7 @@ public class HTMLParseController {
         this.htmlParser = htmlParser;
     }
 
-    @GetMapping(value = {"/", "/parsing", "/parsing-with-google"})
+    @GetMapping(value = {"/", "/parsing", "/parsing-with-tesseract", "/parsing-with-google"})
     public String showQueryWindow(Model model) {
         model.addAttribute("HTMLWrapper", new HTMLWrapper());
         model.addAttribute("firstText", "");
@@ -29,7 +29,20 @@ public class HTMLParseController {
     }
 
     @PostMapping("/parsing")
-    public String showStandartParse(@ModelAttribute("HTMLWrapper") HTMLWrapper htmlWrapper, Model model) {
+    public String showStandardParse(@ModelAttribute("HTMLWrapper") HTMLWrapper htmlWrapper, Model model) {
+        String htmlText = htmlWrapper.getHtmlText();
+
+        TextResponse textResponse = htmlParser.nativeParse(htmlText);
+
+        model.addAttribute("imgText", textResponse.getImgText());
+        model.addAttribute("firstText", textResponse.getFirstText());
+        model.addAttribute("secondText", textResponse.getSecondText());
+        model.addAttribute("HTMLWrapper", new HTMLWrapper());
+        return "html-parser";
+    }
+
+    @PostMapping("/parsing-with-tesseract")
+    public String showTesseractParse(@ModelAttribute("HTMLWrapper") HTMLWrapper htmlWrapper, Model model) {
         String htmlText = htmlWrapper.getHtmlText();
 
         TextResponse textResponse = htmlParser.parse(htmlText, ParserType.TESSERACT);

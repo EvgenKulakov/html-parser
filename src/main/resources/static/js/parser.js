@@ -5,11 +5,18 @@ const secondTextBlocks = document.querySelectorAll('.second-text')
 const successText = document.querySelector('.success-text')
 
 const copyFunc = () => {
-    let textToCopy
-    if (imgTextBlock.innerText.length > 0) {
-        textToCopy = imgTextBlock.innerText
+    let textToCopy = ''
+
+    if (firstTextBlock.innerText.length > 0) {
+        textToCopy += firstTextBlock.innerText
     }
-    textToCopy += '\n\n' + firstTextBlock.innerText
+
+    if (imgTextBlock.innerText.length > 0) {
+        if (firstTextBlock.innerText.length > 0) {
+            textToCopy += '\n\n'
+        }
+        textToCopy += imgTextBlock.innerText
+    }
 
     if (secondTextBlocks.length > 0) {
         textToCopy += '\n\n'

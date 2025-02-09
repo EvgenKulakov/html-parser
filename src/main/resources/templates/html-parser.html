@@ -14,15 +14,18 @@
     <form th:object="${HTMLWrapper}" th:action="@{/parsing}" method="post">
       <textarea rows="10" class="form-control" th:field="*{htmlText}">
       </textarea>
-      <button class="my-3 btn btn-primary" type="submit">Обработать</button>
-      <button formaction="/parsing-with-google" class="my-3 btn btn-warning" type="submit">Обработать с Google</button>
+      <div class="buttons">
+        <button formaction="/parsing-with-tesseract" class="my-3 btn btn-primary" type="submit">Обработать с Tesseract</button>
+        <button formaction="/parsing-with-google" class="my-3 btn btn-warning google" type="submit">Обработать с Google</button>
+        <button class="my-3 btn btn-light only-html" type="submit">Только html</button>
+      </div>
     </form>
     <div th:if="${not #strings.isEmpty(firstText) or not #strings.isEmpty(imgText)}">
       <span class="result">Результат</span>
       <button class="btn btn-sm btn-outline-secondary" type="button" id="copy-button">Копировать</button>
       <span class="success-text">✔ Скопировано успешно</span>
-      <p class="my-3" th:text="${imgText}" id="img-text"></p>
       <p class="my-3" th:text="${firstText}" id="first-text"></p>
+      <p class="my-3" th:text="${imgText}" id="img-text"></p>
       <p th:each="sText, itr : ${secondText}" class="my-1 second-text" th:text="|${itr.count}. ${sText}|"></p>
     </div>
   </div>
